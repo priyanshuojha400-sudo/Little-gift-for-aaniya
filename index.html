@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090609">
+<title>Rishu ❤️ Aaniya</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+ --red:#ed1747;
+ --pink:#ff7797;
+ --gold:#d9b879;
+ --white:#fff3f5;
+}
+
+body{
+ background:#090609;
+ color:var(--white);
+ font-family:Poppins,sans-serif;
+ overflow:hidden;
+}
+
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-2;
+ background:
+ radial-gradient(circle at 20% 20%,#6c102b66,transparent 40%),
+ radial-gradient(circle at 90% 80%,#54152d66,transparent 40%),
+ linear-gradient(140deg,#080608,#1b0710,#090609);
+}
+
+body:after{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-1;
+ pointer-events:none;
+ opacity:.13;
+ background-image:radial-gradient(#fff 1px,transparent 1px);
+ background-size:35px 35px;
+}
+
+.page{
+ display:none;
+ width:100%;
+ height:100dvh;
+ padding:65px 18px 110px;
+ overflow-y:auto;
+ align-items:center;
+ justify-content:center;
+ flex-direction:column;
+ text-align:center;
+}
+
+.page.active{
+ display:flex;
+ animation:show .65s ease;
+}
+
+@keyframes show{
+ from{opacity:0;transform:translateY(20px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+h1,h2,.serif{
+ font-family:"Cormorant Garamond",serif;
+}
+
+h1{
+ font-size:clamp(42px,10vw,72px);
+ line-height:1.05;
+ margin:15px 0;
+}
+
+h2{
+ color:var(--pink);
+ font-size:32px;
+ margin:12px 0;
+}
+
+p{
+ font-size:15px;
+ line-height:1.9;
+ color:#ead7de;
+ max-width:550px;
+ margin:10px auto;
+}
+
+.red{
+ color:var(--pink);
+ text-shadow:0 0 20px #ff174d;
+}
+
+.gold{color:var(--gold)}
+
+.eyebrow{
+ color:var(--gold);
+ font-size:10px;
+ letter-spacing:4px;
+ text-transform:uppercase;
+}
+
+.heart{
+ font-size:60px;
+ color:var(--red);
+ filter:drop-shadow(0 0 15px #ff174d);
+ animation:pulse 1.4s infinite;
+}
+
+@keyframes pulse{
+ 50%{transform:scale(1.2)}
+}
+
+.card{
+ width:100%;
+ max-width:570px;
+ padding:28px 20px;
+ border:1px solid #e51b4555;
+ border-radius:22px;
+ background:linear-gradient(140deg,#ffffff0d,#e51b4510);
+ box-shadow:0 15px 50px #0009;
+ backdrop-filter:blur(12px);
+}
+
+.btn{
+ padding:13px 22px;
+ margin:7px;
+ border-radius:30px;
+ border:1px solid #ff6684;
+ color:white;
+ background:linear-gradient(120deg,#97102f,#ed1747);
+ font-family:Poppins,sans-serif;
+ font-size:13px;
+ cursor:pointer;
+ box-shadow:0 5px 25px #e51b4540;
+ transition:.3s;
+}
+
+.btn:hover{transform:translateY(-3px)}
+
+.btn.secondary{
+ background:#ffffff08;
+ border-color:var(--gold);
+ color:var(--gold);
+ box-shadow:none;
+}
+
+.bottom{
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ padding:12px 10px 17px;
+ background:linear-gradient(transparent,#090609 35%);
+ z-index:10;
+}
+
+.nav{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ gap:10px;
+}
+
+.nav button{min-width:95px}
+
+.counter{
+ font-size:11px;
+ color:var(--gold);
+}
+
+.progress{
+ height:2px;
+ max-width:450px;
+ background:#ffffff20;
+ margin:10px auto;
+}
+
+.progress span{
+ display:block;
+ height:100%;
+ width:6.66%;
+ background:var(--red);
+ transition:.4s;
+}
+
+.gallery{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;
+ width:100%;
+ max-width:520px;
+ margin:15px auto;
+}
+
+.photo{
+ background:#f9e9e9;
+ padding:7px 7px 12px;
+ transform:rotate(-2deg);
+ box-shadow:0 8px 20px #0009;
+ border-radius:3px;
+}
+
+.photo:nth-child(even){transform:rotate(2deg)}
+
+.photo img{
+ width:100%;
+ height:125px;
+ object-fit:cover;
+ display:block;
+ background:#25111a;
+}
+
+.flirt{
+ display:block;
+ color:#71162f;
+ font-family:Georgia,serif;
+ font-size:12px;
+ line-height:1.4;
+ margin:8px 2px 0;
+ text-align:center;
+}
+
+.secret{
+ display:none;
+ margin:18px auto;
+ padding:17px;
+ border:1px dashed var(--pink);
+ border-radius:15px;
+ color:#ffb6c8;
+ animation:show .5s;
+}
+
+.secret.show{display:block}
+
+.message{
+ font-family:"Cormorant Garamond",serif;
+ font-size:26px;
+ color:var(--pink);
+ padding:15px;
+ min-height:80px;
+}
+
+.envelope{
+ width:180px;
+ height:115px;
+ background:#a30f36;
+ margin:30px auto;
+ display:grid;
+ place-items:center;
+ font-size:48px;
+ border-radius:8px;
+ cursor:pointer;
+ box-shadow:0 0 35px #ed315566;
+ animation:float 3s infinite;
+}
+
+@keyframes float{
+ 50%{transform:translateY(-10px)}
+}
+
+.floating{
+ position:fixed;
+ bottom:-30px;
+ color:#ff315c;
+ pointer-events:none;
+ animation:rise 5s linear forwards;
+ z-index:30;
+}
+
+@keyframes rise{
+ to{
+  transform:translateY(-110vh) rotate(360deg);
+  opacity:0;
+ }
+}
+
+footer{
+ margin-top:20px;
+ color:#997b88;
+ font-size:10px;
+}
+
+@media(max-width:380px){
+ .page{padding-left:12px;padding-right:12px}
+ .card{padding:22px 14px}
+ .photo img{height:105px}
+ .flirt{font-size:11px}
+ .nav button{min-width:80px;padding:11px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<section class="page active" id="p0">
+<div class="eyebrow">A surprise made with love</div>
+<div class="heart">♥</div>
+<h1>Hey<br><span class="red">Aaniya!</span></h1>
+<div class="card">
+<h2>A Little Surprise</h2>
+<p>Someone has something special to show you today.</p>
+<p>And that someone is...</p>
+<h2 class="gold">Rishu ❤️</h2>
+<button class="btn" onclick="go(1)">OPEN YOUR SURPRISE ✨</button>
+</div>
+<footer>MADE ESPECIALLY FOR AANIYA</footer>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page" id="p1">
+<div class="eyebrow">Chapter 01</div>
+<h1>Welcome to<br><span class="red">Your World</span></h1>
+<div class="card">
+<div class="heart">♡</div>
+<p>Forget everything for a few moments.</p>
+<p>Take a breath, relax and enjoy this little surprise.</p>
+<p>This website has no special occasion behind it.</p>
+<h2>Just You. ❤️</h2>
+</div>
+<button class="btn" onclick="go(2)">LET'S GO →</button>
+</section>
+
+<!-- PAGE 3 -->
+<section class="page" id="p2">
+<div class="eyebrow">Chapter 02 • A letter</div>
+<h1>Dear <span class="red">Aaniya</span></h1>
+<div class="envelope" onclick="openLetter()">💌</div>
+<p>Tap the envelope to open your secret letter.</p>
+<div class="card" id="letter" style="display:none">
+<h2>Dear Aaniya,</h2>
+<p>I don't need a reason to make something special for you. Sometimes a random day is the perfect day to remind someone that they matter. I hope this little surprise brings a smile to your face.</p>
+<h2 class="gold">— Rishu ❤️</h2>
+</div>
+<button class="btn" onclick="go(3)">NEXT →</button>
+</section>
+
+<!-- PAGE 4 -->
+<section class="page" id="p3">
+<div class="eyebrow">Chapter 03 • A confession</div>
+<div class="card">
+<div class="heart">♥</div>
+<h1>One Little <span class="red">Truth</span></h1>
+<p>Your smile has a way of making even an ordinary conversation feel special.</p>
+<p>Sometimes I catch myself smiling at the funniest little things you say.</p>
+<h2>That's your magic, Aaniya! ✨</h2>
+</div>
+<button class="btn" onclick="go(4)">NEXT →</button>
+</section>
+
+<!-- PAGE 5 -->
+<section class="page" id="p4">
+<div class="eyebrow">Chapter 04 • Reasons to smile</div>
+<h1>Things I <span class="red">Appreciate</span></h1>
+<div class="card">
+<p>♡ Your beautiful personality.</p>
+<p>♡ Your little habits.</p>
+<p>♡ Your random conversations.</p>
+<p>♡ The way you make moments memorable.</p>
+<p>♡ The person you are becoming.</p>
+</div>
+<button class="btn" onclick="go(5)">NEXT →</button>
+</section>
+
+<!-- PAGE 6 -->
+<section class="page" id="p5">
+<div class="eyebrow">Chapter 05 • A funny thought</div>
+<h1>Breaking <span class="red">News!</span> 😂</h1>
+<div class="card">
+<div class="heart">😂</div>
+<h2>Official Report</h2>
+<p>Scientists have discovered that Aaniya has a special talent for making Rishu smile.</p>
+<p>Further research is ongoing.</p>
+<p class="gold">Official report: 100% adorable. 🤣</p>
+</div>
+<button class="btn" onclick="go(6)">NEXT →</button>
+</section>
+
+<!-- PAGE 7 -->
+<section class="page" id="p6">
+<div class="eyebrow">Chapter 06 • Random messages</div>
+<h1>A Message <span class="red">For You</span></h1>
+<div class="card">
+<div class="message" id="randomMessage">Press the button below...</div>
+<button class="btn" onclick="newMessage()">TAP FOR A MESSAGE 💌</button>
+</div>
+<button class="btn secondary" onclick="go(7)">NEXT →</button>
+</section>
+
+<!-- PAGE 8 -->
+<section class="page" id="p7">
+<div class="eyebrow">Chapter 07 • Memory book</div>
+<h1>Little <span class="red">Moments</span></h1>
+<p>Some pictures say more than a thousand words.</p>
+<div class="gallery" id="gallery1"></div>
+<button class="btn" onclick="go(8)">MORE MEMORIES →</button>
+</section>
+
+<!-- PAGE 9 -->
+<section class="page" id="p8">
+<div class="eyebrow">Chapter 08 • More memories</div>
+<h1>Another <span class="red">Ten</span></h1>
+<p>Because twenty pictures are still not enough!</p>
+<div class="gallery" id="gallery2"></div>
+<button class="btn" onclick="go(9)">NEXT →</button>
+</section>
+
+<!-- PAGE 10 -->
+<section class="page" id="p9">
+<div class="eyebrow">Chapter 09 • A little promise</div>
+<h1>Always <span class="red">Be You</span></h1>
+<div class="card">
+<div class="heart">♥</div>
+<p>Keep chasing your dreams. Keep discovering new things. Keep laughing at silly jokes.</p>
+<p>Never feel that you need to change who you are to make the world happy.</p>
+<h2>You are wonderfully you. 🌹</h2>
+</div>
+<button class="btn" onclick="go(10)">NEXT →</button>
+</section>
+
+<!-- PAGE 11 -->
+<section class="page" id="p10">
+<div class="eyebrow">Chapter 10 • A little game</div>
+<h1>Choose Your <span class="red">Surprise</span></h1>
+<div class="card">
+<p>Pick any box. Let's see what you get!</p>
+<button class="btn" onclick="gift(0)">🎁 BOX 1</button>
+<button class="btn" onclick="gift(1)">🎁 BOX 2</button>
+<button class="btn" onclick="gift(2)">🎁 BOX 3</button>
+<div class="message" id="giftMessage">Your surprise is waiting...</div>
+</div>
+<button class="btn secondary" onclick="go(11)">NEXT →</button>
+</section>
+
+<!-- PAGE 12 -->
+<section class="page" id="p11">
+<div class="eyebrow">Chapter 11 • Something sweet</div>
+<h1>A Tiny <span class="red">Reminder</span></h1>
+<div class="card">
+<h2>Dear Aaniya,</h2>
+<p>On days when things get busy, remember to take a break, enjoy the little things and give yourself credit for how far you've come.</p>
+<p>You deserve happiness, peace, laughter and wonderful opportunities.</p>
+<h2 class="gold">Keep shining! ✨</h2>
+</div>
+<button class="btn" onclick="go(12)">NEXT →</button>
+</section>
+
+<!-- PAGE 13 -->
+<section class="page" id="p12">
+<div class="eyebrow">Chapter 12 • A little thank you</div>
+<h1>Thank <span class="red">You</span></h1>
+<div class="card">
+<div class="heart">♥</div>
+<p>Thank you for all the conversations, the laughs, the little surprises and the memories along the way.</p>
+<p>Even the most ordinary moments can become something worth remembering.</p>
+<h2>You're appreciated, Aaniya. ❤️</h2>
+</div>
+<button class="btn" onclick="go(13)">NEXT →</button>
+</section>
+
+<!-- PAGE 14 -->
+<section class="page" id="p13">
+<div class="eyebrow">Chapter 13 • One last letter</div>
+<h1>Just <span class="red">For You</span></h1>
+<div class="card">
+<p>If I could give you one thing, it would be the ability to see yourself through the eyes of people who appreciate you.</p>
+<p>You would understand how much happiness your presence can bring.</p>
+<h2 class="gold">Never stop smiling. 🌷</h2>
+</div>
+<button class="btn" onclick="go(14)">OPEN FINAL SURPRISE 🎁</button>
+</section>
+
+<!-- PAGE 15 -->
+<section class="page" id="p14">
+<div class="eyebrow">The final page • Made for you</div>
+<div class="heart">♥</div>
+<h1>Rishu <span class="red">❤️</span><br>Aaniya</h1>
+<div class="card">
+<h2>One Last Message</h2>
+<p>There doesn't need to be a special day to remind you that you are special.</p>
+<p>I made this little world just for you, hoping it would turn an ordinary day into a happy memory.</p>
+<h1 class="red">Keep Smiling!</h1>
+<p class="gold">With lots of care,<br>Rishu ❤️</p>
+<button class="btn" onclick="celebrate()">MAKE IT SPARKLE ✨</button>
+<div class="secret" id="ending">And that's the little surprise I wanted to give you. ❤️</div>
+<button class="btn secondary" onclick="go(0)">START AGAIN ↻</button>
+</div>
+<footer>MADE ESPECIALLY FOR AANIYA</footer>
+</section>
+
+<!-- NAVIGATION -->
+<div class="bottom">
+<div class="nav">
+<button class="btn secondary" onclick="previous()">← BACK</button>
+<span class="counter" id="counter">01 / 15</span>
+<button class="btn" onclick="next()">NEXT →</button>
+</div>
+<div class="progress"><span id="progress"></span></div>
+</div>
+
+<script>
+let current=0;
+
+function go(n){
+ current=Math.max(0,Math.min(14,n));
+
+ document.querySelectorAll('.page').forEach((p,i)=>{
+  p.classList.toggle('active',i===current);
+  if(i===current)p.scrollTop=0;
+ });
+
+ document.getElementById('counter').textContent=
+ String(current+1).padStart(2,'0')+' / 15';
+
+ document.getElementById('progress').style.width=
+ ((current+1)/15*100)+'%';
+
+ window.scrollTo(0,0);
+}
+
+function next(){
+ if(current<14)go(current+1);
+}
+
+function previous(){
+ if(current>0)go(current-1);
+}
+
+function openLetter(){
+ document.getElementById('letter').style.display='block';
+}
+
+const messages=[
+ "You deserve all the happiness in the world. ❤️",
+ "Never stop believing in your dreams. ✨",
+ "Your smile is a lovely thing. Keep sharing it!",
+ "Even ordinary days can become beautiful memories.",
+ "Take care of yourself. You matter. 💗",
+ "Keep being your wonderfully unique self.",
+ "You make little moments feel special. 🌹",
+ "Don't forget how amazing you can be!"
+];
+
+function newMessage(){
+ const el=document.getElementById('randomMessage');
+ let msg;
+ do{
+  msg=messages[Math.floor(Math.random()*messages.length)];
+ }while(msg===el.textContent);
+ el.textContent=msg;
+}
+
+const gifts=[
+ "SURPRISE! You deserve a thousand reasons to smile. ❤️",
+ "SURPRISE! You have a special place in this little website. 🌹",
+ "SURPRISE! Rishu is sending you unlimited virtual hugs and smiles! 💗"
+];
+
+function gift(n){
+ document.getElementById('giftMessage').textContent=gifts[n];
+}
+
+function floatingHeart(){
+ const el=document.createElement('div');
+ el.className='floating';
+ el.textContent=['♥','♡','✦','❤'][Math.floor(Math.random()*4)];
+ el.style.left=Math.random()*100+'%';
+ el.style.fontSize=(15+Math.random()*22)+'px';
+ document.body.appendChild(el);
+ setTimeout(()=>el.remove(),5000);
+}
+
+setInterval(floatingHeart,1000);
+
+function celebrate(){
+ document.getElementById('ending').classList.add('show');
+ for(let i=0;i<35;i++){
+  setTimeout(floatingHeart,i*100);
+ }
+}
+
+/* 20 SNAPCHAT PHOTO FILENAMES */
+const photoNames=[
+ "Snapchat-1683581226.jpg",
+ "Snapchat-2114045735.jpg",
+ "Snapchat-109292018.jpg",
+ "Snapchat-1629326889.jpg",
+ "Snapchat-2071717953.jpg",
+ "Snapchat-80631403.jpg",
+ "Snapchat-2073811808.jpg",
+ "Snapchat-1908279069.jpg",
+ "Snapchat-541304217.jpg",
+ "Snapchat-284203828.jpg",
+ "Snapchat-1988251406.jpg",
+ "Snapchat-1873944562.jpg",
+ "Snapchat-1574120677.jpg",
+ "Snapchat-1028769974.jpg",
+ "Snapchat-1708700711.jpg",
+ "Snapchat-1057907639.jpg",
+ "Snapchat-1981526627.jpg",
+ "Snapchat-480093454.jpg",
+ "Snapchat-1736753373.jpg",
+ "Snapchat-66354780.jpg"
+];
+
+/* SHORT FLIRTY LINES BELOW EACH PHOTO */
+const flirtLines=[
+ "How can someone look this effortlessly cute? 😉",
+ "My favourite view has a name: Aaniya. ❤️",
+ "Are you always this pretty, or is it just my luck? 😍",
+ "Warning: This smile is highly distracting. 💗",
+ "If cuteness had a face, I think I found it. 😉",
+ "One picture, and suddenly my day is better. ❤️",
+ "I think my camera has a favourite person. 😘",
+ "You make looking beautiful seem so easy. ✨",
+ "Not fair... how do you win every photo? 😉",
+ "This picture deserves a permanent place in my heart. ❤️",
+ "Even the stars must be a little jealous. 🌟",
+ "My eyes definitely picked their favourite. 😍",
+ "Can I blame you for smiling at my phone? 😉",
+ "Somehow, every picture of you feels special. 💕",
+ "Pretty sure this photo just stole my attention. 😘",
+ "You + that smile = my favourite combination. ❤️",
+ "If I could frame a feeling, it would look like this. 💗",
+ "Just when I thought you couldn't get cuter. 😉",
+ "This is your reminder that you're ridiculously adorable. 😍",
+ "And yes, you're still my favourite notification. ❤️"
+];
+
+function makeGallery(id,start,end){
+ const gallery=document.getElementById(id);
+
+ for(let i=start;i<end;i++){
+  const div=document.createElement('div');
+  div.className='photo';
+
+  const img=document.createElement('img');
+  img.src=photoNames[i];
+  img.alt='Aaniya memory '+(i+1);
+  img.loading='lazy';
+
+  const flirt=document.createElement('div');
+  flirt.className='flirt';
+  flirt.textContent=flirtLines[i];
+
+  div.appendChild(img);
+  div.appendChild(flirt);
+  gallery.appendChild(div);
+ }
+}
+
+makeGallery('gallery1',0,10);
+makeGallery('gallery2',10,20);
+
+go(0);
+</script>
+
+</body>
+</html>
